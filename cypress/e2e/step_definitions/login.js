@@ -1,34 +1,48 @@
-import {
-  Given,
-  When,
-  And,
-  Then,
-} from "@badeball/cypress-cucumber-preprocessor";
-const loginPage = require("../../pages/LoginPage");
+import {Given, When, Then, And} from '@badeball/cypress-cucumber-preprocessor';
 
-Given("A user opens a saucelabs website", () => {
-  cy.visit("/");
-});
-When("A user enters the username {string}", (username) => {
-  loginPage.typeUsername(username);
-});
-When("A user provides incorrect credentials", (table) => {
-  table.hashes().forEach((row) => {
-    cy.log(row.username);
-    cy.log(row.password);
-    loginPage.typeUsername(row.username);
-    loginPage.typePassword(row.password);
-  });
-});
-And("A user enters the password {string}", (password) => {
-  loginPage.typePassword(password);
-});
-And("A user clicks on the login button", () => {
-  loginPage.clickLogin();
-});
-Then("the url will contains the inventory subdirectory", () => {
-  cy.url().should("contains", "/inventory.html");
-});
-Then("The error message {string} is displayed", (errorMessage) => {
-  loginPage.elements.errorMessage().should("have.text", errorMessage);
-});
+import locatorsPage from "../../Locators/Locators";
+
+const login = new locatorsPage();
+
+Given('Visit website for login page',()=>{
+  cy.visit(login.url);
+})
+
+When('Click on Join Us Nav',()=>{
+  cy.get(login.joinUsNav).click();
+})
+
+And('Click on Togglebar for Login',()=>{
+  cy.get(login.toogleMenubar).click(); 
+})
+
+
+// Then('Login ', function(){
+
+   
+
+    
+    
+  
+//     cy.wait(5000);
+//     // cy.get(login.LoginNav).invoke('removeAttr', 'target').click();
+//     cy.wait(5000);
+   
+
+   
+//     let newUrl = '';
+//     cy.window().then((win) => {
+//     cy.stub(win, 'open').as('windowOpen').callsFake(url => {
+//       newUrl = url;
+//           });
+//         })
+        
+//     cy.get(login.LoginNav).click({force: true})
+//     cy.wait(5000);  
+//     cy.get('@windowOpen').should('be.called');
+    
+
+//     cy.xpath('//*[@id="phone"]').type('01989');
+//     // cy.xpath(login.countrySelected).click();
+//     cy.wait(5000);
+// })
